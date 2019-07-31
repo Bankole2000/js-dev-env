@@ -4,7 +4,7 @@ import open from 'open';
 import webpack from 'webpack';
 import config from '../webpack.config.dev';
 
-/* eslint-disable no-console */
+/* eslint-disable */
 
 const port = 5000;
 const app = express();
@@ -16,7 +16,16 @@ app.use(require('webpack-dev-middleware')(compiler, {
 }))
 
 app.get('/', (req, res) => {
-  res.sendFile(join(__dirname, '../src/index.html'))
+ res.sendFile(join(__dirname, '../src/index.html'))
+});
+
+app.get('/users', function(req, res) {
+  // Hard coding for simplicity, pretend this hits a real database,
+  res.json([
+    {"id": 1, "firstName":"Bob", "lastName":"Smith", "email":"bob@gmail.com"},
+    {"id": 1, "firstName":"John", "lastName":"Norton", "email":"tnorton@yahoo.com"},
+    {"id": 1, "firstName":"James", "lastName":"Lee", "email":"lee.james@hotmail.com"}
+  ]);
 });
 
 app.listen(port, (err) => {
